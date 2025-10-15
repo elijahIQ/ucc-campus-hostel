@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Hostel | UCC Campus Hostel</title>
+  <link rel="stylesheet" href="style.css">
+  <script>
+  if (localStorage.getItem("isLoggedIn") !== "true") {
+    window.location.href = "login.html";
+  }
+</script>
+<button id="logoutBtn" style="margin-top: 10px; background:#c0392b;">Logout</button>
+
+<script>
+  document.getElementById("logoutBtn").addEventListener("click", () => {
+    localStorage.removeItem("isLoggedIn");
+    window.location.href = "login.html";
+  });
+</script>
+
+
+</head>
+<body>
+  <header>
+    <h1>Add New Hostel</h1>
+    <a href="index.html" class="back-link">← Back to Home</a>
+  </header>
+
+  <section class="form-section">
+    <form id="hostelForm">
+      <label>Hostel Name:</label>
+      <input type="text" name="name" required>
+
+      <label>Owner Contact:</label>
+      <input type="text" name="contact" required>
+
+      <label>Upload Image 1:</label>
+      <input type="file" name="image1" accept="image/*" required>
+
+      <label>Upload Image 2:</label>
+      <input type="file" name="image2" accept="image/*" required>
+
+      <button type="submit">Add Hostel</button>
+    </form>
+
+    <p id="message"></p>
+  </section>
+
+  <script>
+    const form = document.getElementById("hostelForm");
+    const msg = document.getElementById("message");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+
+      try {
+        const res = await fetch("http://127.0.0.1:8000/hostels", {
+          method: "POST",
+          body: formData
+        });
+
+        if (res.ok) {
+          msg.textContent = "✅ Hostel added successfully!";
+          msg.style.color = "green";
+          form.reset();
+        } else {
+          msg.textContent = "❌ Failed to add hostel.";
+          msg.style.color = "red";
+        }
+      } catch (err) {
+        msg.textContent = "⚠️ Error connecting to server.";
+        msg.style.color = "orange";
+      }
+    });
+  </script>
+</body>
+</html>

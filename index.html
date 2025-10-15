@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UCC Campus Hostel</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js"></script>
+
+
+</head>
+<body>
+  <header>
+    <h1>UCC Campus Hostel Finder</h1>
+    <p>Find your perfect hostel near UCC</p>
+  </header>
+
+  <section class="search-section">
+    <input type="text" id="searchBox" placeholder="Search hostel by name..." onkeyup="filterHostels()">
+  </section>
+
+  <section id="hostelList" class="hostel-list">
+    <!-- Hostel 1 -->
+    <div class="hostel-card">
+      <h2>West View Hostel</h2>
+      <div class="images">
+        <img src="images/westview1.jpg" alt="West View Hostel front view">
+        <img src="images/westview2.jpg" alt="West View Hostel room">
+      </div>
+      <p><strong>Owner Contact:</strong> 024 567 8910</p>
+    </div>
+
+    <!-- Hostel 2 -->
+    <div class="hostel-card">
+      <h2>Peace Lodge</h2>
+      <div class="images">
+        <img src="images/peace1.jpg" alt="Peace Lodge exterior">
+        <img src="images/peace2.jpg" alt="Peace Lodge room">
+      </div>
+      <p><strong>Owner Contact:</strong> 020 456 7891</p>
+    </div>
+
+    <!-- Hostel 3 -->
+    <div class="hostel-card">
+      <h2>Bright Future Hostel</h2>
+      <div class="images">
+        <img src="images/bright1.jpg" alt="Bright Future Hostel">
+        <img src="images/bright2.jpg" alt="Bright Future Hostel room">
+      </div>
+      <p><strong>Owner Contact:</strong> 055 789 2345</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 UCC Campus Hostel Finder | Designed by ELIJAH AYINE</p>
+  </footer>
+
+  <script>
+    function filterHostels() {
+      const query = document.getElementById("searchBox").value.toLowerCase();
+      const hostels = document.getElementsByClassName("hostel-card");
+
+      for (let i = 0; i < hostels.length; i++) {
+        const name = hostels[i].getElementsByTagName("h2")[0].innerText.toLowerCase();
+        hostels[i].style.display = name.includes(query) ? "block" : "none";
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | UCC Campus Hostel</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Admin Login</h1>
+  </header>
+
+  <section class="form-section">
+    <form id="loginForm">
+      <label>Username:</label>
+      <input type="text" name="username" required>
+
+      <label>Password:</label>
+      <input type="password" name="password" required>
+
+      <button type="submit">Login</button>
+    </form>
+    <p id="loginMsg"></p>
+  </section>
+
+  <script>
+    const form = document.getElementById("loginForm");
+    const msg = document.getElementById("loginMsg");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+
+      const res = await fetch("http://127.0.0.1:8000/login", {
+        method: "POST",
+        body: formData
+      });
+
+      if (res.ok) {
+        msg.textContent = "✅ Login successful!";
+        msg.style.color = "green";
+        localStorage.setItem("isLoggedIn", "true");
+        window.location.href = "add_hostel.html";
+      } else {
+        const data = await res.json();
+        msg.textContent = "❌ " + data.message;
+        msg.style.color = "red";
+      }
+    });
+  </script>
+</body>
+</html>
